@@ -16,8 +16,22 @@ gjudgedataR2 <- read.csv("InformativenessVsDifficultyR2 - GJudge.csv", row.names
 controldataR2 <- read.csv("InformativenessVsDifficultyR2 - Control.csv", row.names=1)
 p_startsR2 = c(1,5,9,15)
 
-round1 = list("data" = list("gjudge" = gjudgedataR1,"control" = controldataR1,"p_starts" = c(p_startsR1,length(gjudgedataR1)+1),"Round" = "Round 1",'sqrt'=''))
-round2 = list("data" = list("gjudge" = gjudgedataR2,"control" = controldataR2,"p_starts" = c(p_startsR2,length(gjudgedataR2)+1),"Round" = "Round 2",'sqrt'=''))
+gjudgedataR1_initial <- read.csv("InformVDiff_data - Round1_GJudge_Initial.csv", row.names=1)
+controldataR1_initial <- read.csv("InformativenessVsDifficultyR1 - Control.csv", row.names=1)
+p_startsR1 = c(1,5,9,13)
+
+gjudgedataR2_initial <- read.csv("InformVDiff_data - Round2_GJudge_Initial.csv", row.names=1)
+controldataR2_initial <- read.csv("InformativenessVsDifficultyR2 - Control.csv", row.names=1)
+p_startsR2 = c(1,5,9,15)
+
+round1 = list("data" = list("gjudge" = gjudgedataR1,"control" = controldataR1,
+    "p_starts" = c(p_startsR1,length(gjudgedataR1)+1),"Round" = "Round 1 Final",'sqrt'=''))
+round2 = list("data" = list("gjudge" = gjudgedataR2,"control" = controldataR2,
+    "p_starts" = c(p_startsR2,length(gjudgedataR2)+1),"Round" = "Round 2 Final",'sqrt'=''))
+round1_initial = list("data" = list("gjudge" = gjudgedataR1_initial,"control" = controldataR1_initial,
+    "p_starts" = c(p_startsR1,length(gjudgedataR1_initial)+1),"Round" = "Round 1 Initial",'sqrt'=''))
+round2_initial = list("data" = list("gjudge" = gjudgedataR2_initial,"control" = controldataR2_initial,
+    "p_starts" = c(p_startsR2,length(gjudgedataR2_initial)+1),"Round" = "Round 2 Initial",'sqrt'=''))
 
 #
 #
@@ -156,6 +170,8 @@ create_graphs = function(round_data){
 
 round1 = create_graphs(round1)
 round2 = create_graphs(round2)
+round1_initial = create_graphs(round1_initial)
+round2_initial = create_graphs(round2_initial)
 
 
 
