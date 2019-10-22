@@ -113,7 +113,7 @@ prepare_data = function(round_data){
 generate_graph = function(round_data){
   #repetition for Q vs P balancing
   for (i in 1:2){
-    title = paste(round_data[[i]]$Round,"Informativeness by Question vs. Difficulty",round_data[[i]]$sqrt)
+    title = paste(round_data[[i]]$Round,"Informativeness by Question vs. Difficulty",round_data[[i]]$sqrt,".png")
     png(title,width = 1000,height = 700)
     plot(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Qx,main=title,
          col = 2,xlab = 'Difficulty: Average(WRPS)',ylab = 'Informativeness: Cor(WRPSx,Avg(WRPS~x))',
@@ -128,7 +128,7 @@ generate_graph = function(round_data){
     legend(x=1,y=.9,legend=c("Good Judgement","Control"),col=c(2,4),pch=16,bty='n')
     dev.off()
     
-    title = paste(round_data[[i]]$Round,"Informativeness by Problem vs. Difficulty",round_data[[i]]$sqrt)
+    title = paste(round_data[[i]]$Round,"Informativeness by Problem vs. Difficulty",round_data[[i]]$sqrt,".png")
     png(title,width = 1000,height = 700)
     plot(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Px,main=title,
          col = 2,xlab = 'Difficulty: Average(WRPS)',ylab = 'Informativeness: Cor(WRPSy,Avg(WRPS~y))',
