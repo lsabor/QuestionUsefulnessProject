@@ -37,7 +37,6 @@ round2_initial = list("data" = list("gjudge" = gjudgedataR2_initial,"control" = 
 #
 ###############################################
 
-
 #find means of each question score
 get_difficulties = function(round_data){
   for (i in 1:2){
@@ -127,33 +126,45 @@ prepare_data = function(round_data){
 generate_graph = function(round_data){
   #repetition for Q vs P balancing
   for (i in 1:2){
-    title = paste(round_data[[i]]$Round,"Informativeness by Question vs. Difficulty",round_data[[i]]$sqrt,".png")
-    png(title,width = 1000,height = 700)
+    title = paste(round_data[[i]]$Round,"Informativeness by Question vs. Difficulty",round_data[[i]]$sqrt)
+    png(paste(title,".png"),width = 1000,height = 700)
     plot(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Qx,main=title,
          col = 2,xlab = 'Difficulty: Average(WRPS)',ylab = 'Informativeness: Cor(WRPSx,Avg(WRPS~x))',
          xlim=c(0,1.25),ylim=c(-.5,1),pch=16,cex=2)
-    mtext("Informativeness by Question (Round 2, Problem y, Question x)",side=3,line=0.4,at=.5,adj=0.5,cex=.7)
+    mtext("Informativeness by Question (Round 2, Problem y, Question x)",side=3,line=0.4,at=.5,adj=0.5,cex=1)
     grid (NULL,NULL, lty = 6)
     text(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Qx+.06,labels = colnames(round_data[[i]]$gjudge),col=2,cex=1.4)
     points(round_data[[i]]$control_difficulty,round_data[[i]]$control_informativeness_Qx,col=4,pch=16,cex=2)
     text(round_data[[i]]$control_difficulty,round_data[[i]]$control_informativeness_Qx+.06,labels = colnames(round_data[[i]]$control),col=4,cex=1.4)
-    abline(lm(round_data[[i]]$gjudge_informativeness_Qx~round_data[[i]]$gjudge_difficulty),col=2)
-    abline(lm(round_data[[i]]$control_informativeness_Qx~round_data[[i]]$control_difficulty),col=4)
+    
+    trendline_gjudge = lm(round_data[[i]]$gjudge_informativeness_Qx~round_data[[i]]$gjudge_difficulty)
+    text(x=1.07,y=.95,labels = paste('p-value :',round(summary(trendline_gjudge)[[4]][[8]],3)),col=2)
+    abline(trendline_gjudge,col=2)
+    trendline_control = lm(round_data[[i]]$control_informativeness_Qx~round_data[[i]]$control_difficulty)
+    text(x=1.07,y=.905,labels = paste('p-value :',round(summary(trendline_control)[[4]][[8]],3)),col=4)
+    abline(trendline_control,col=4)
+    
     legend(x=1,y=.9,legend=c("Good Judgement","Control"),col=c(2,4),pch=16,bty='n')
     dev.off()
     
-    title = paste(round_data[[i]]$Round,"Informativeness by Problem vs. Difficulty",round_data[[i]]$sqrt,".png")
-    png(title,width = 1000,height = 700)
+    title = paste(round_data[[i]]$Round,"Informativeness by Problem vs. Difficulty",round_data[[i]]$sqrt)
+    png(paste(title,".png"),width = 1000,height = 700)
     plot(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Px,main=title,
          col = 2,xlab = 'Difficulty: Average(WRPS)',ylab = 'Informativeness: Cor(WRPSy,Avg(WRPS~y))',
          xlim=c(0,1.25),ylim=c(-.5,1),pch=16,cex=2)
-    mtext("Informativeness by Problem (Round 2, Problem y, Question x)",side=3,line=0.4,at=.5,adj=0.5,cex=.7)
+    mtext("Informativeness by Problem (Round 2, Problem y, Question x)",side=3,line=0.4,at=.5,adj=0.5,cex=1)
     grid (NULL,NULL, lty = 6)
     text(round_data[[i]]$gjudge_difficulty,round_data[[i]]$gjudge_informativeness_Px+.06,labels = colnames(round_data[[i]]$gjudge),col=2,cex=1.4)
     points(round_data[[i]]$control_difficulty,round_data[[i]]$control_informativeness_Px,col=4,pch=16,cex=2)
     text(round_data[[i]]$control_difficulty,round_data[[i]]$control_informativeness_Px+.06,labels = colnames(round_data[[i]]$control),col=4,cex=1.4)
-    abline(lm(round_data[[i]]$gjudge_informativeness_Px~round_data[[i]]$gjudge_difficulty),col=2)
-    abline(lm(round_data[[i]]$control_informativeness_Px~round_data[[i]]$control_difficulty),col=4)
+    
+    trendline_gjudge = lm(round_data[[i]]$gjudge_informativeness_Px~round_data[[i]]$gjudge_difficulty)
+    text(x=1.07,y=.95,labels = paste('p-value :',round(summary(trendline_gjudge)[[4]][[8]],3)),col=2)
+    abline(trendline_gjudge,col=2)
+    trendline_control = lm(round_data[[i]]$control_informativeness_Px~round_data[[i]]$control_difficulty)
+    text(x=1.07,y=.905,labels = paste('p-value :',round(summary(trendline_control)[[4]][[8]],3)),col=4)
+    abline(trendline_control,col=4)
+    
     legend(x=1,y=.9,legend=c("Good Judgement","Control"),col=c(2,4),pch=16,bty='n')
     dev.off()
     
