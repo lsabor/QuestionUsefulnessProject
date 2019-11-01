@@ -1,5 +1,5 @@
 #factor analysis number of factors:
-num.factors = 4
+num.factors = 1
 
 
 datasets = list(read.csv("InformativenessVsDifficultyR1 - Control.csv", row.names=1),
@@ -18,11 +18,12 @@ fc.matrices = list(cor(t(datasets[[1]]),t(datasets[[1]])),
                    cor(t(datasets[[3]]),t(datasets[[3]])),
                    cor(t(datasets[[4]]),t(datasets[[4]])))
 
-#THIS IS THE ONLY DATASET THAT WORKS, to try others, replace [[4]] with other numbers
+### THIS IS THE ONLY DATASET THAT WORKS, to try others, replace [[4]] with other numbers
 fan.result = factanal(covmat = cor.matrices[[4]],factors = num.factors, 
                       n.obs = nrow(cor.matrices[[4]]), rotation = "varimax")
 fan.result
 
+# ### results for datasets 1-3 don't work because there are too few observations on 16-20 columns
 # fan.results = list(factanal(covmat = cor.matrices[[1]],factors = num.factors, 
 #                             n.obs = nrow(cor.matrices[[1]]), rotation = "varimax"),
 #                    factanal(covmat = cor.matrices[[2]],factors = num.factors, 
@@ -45,35 +46,47 @@ fan.compiled.results = list(factanal(covmat = cor.compiled.mat[[1]],factors = nu
 fan.compiled.results[[1]]
 fan.compiled.results[[2]]
 
-
-p1 = apply(datasets[[1]][,1:4],1,mean)
-p2 = apply(datasets[[1]][,5:8],1,mean)
-p3 = apply(datasets[[1]][,9:12],1,mean)
-p4 = apply(datasets[[1]][,13:16],1,mean)
-r1c = data.frame(cbind(p1,p2,p3,p4))
-
-p1 = apply(datasets[[2]][,1:4],1,mean)
-p2 = apply(datasets[[2]][,5:8],1,mean)
-p3 = apply(datasets[[2]][,9:12],1,mean)
-p4 = apply(datasets[[2]][,13:16],1,mean)
-r1g = data.frame(cbind(p1,p2,p3,p4))
-
-p1 = apply(datasets[[3]][,1:4],1,mean)
-p2 = apply(datasets[[3]][,5:8],1,mean)
-p3 = apply(datasets[[3]][,9:14],1,mean)
-p4 = apply(datasets[[3]][,15:20],1,mean)
-r2c = data.frame(cbind(p1,p2,p3,p4))
-
-p1 = apply(datasets[[4]][,1:4],1,mean)
-p2 = apply(datasets[[4]][,5:8],1,mean)
-p3 = apply(datasets[[4]][,9:14],1,mean)
-p4 = apply(datasets[[4]][,15:20],1,mean)
-r2g = data.frame(cbind(p1,p2,p3,p4))
-
-  
-datasets.avg.prob = list(r1c,
-                         r1g,
-                         r2c,
-                         r2g)
-
-
+# ####below is factor analysis by problem
+# p1 = apply(datasets[[1]][,1:4],1,mean)
+# p2 = apply(datasets[[1]][,5:8],1,mean)
+# p3 = apply(datasets[[1]][,9:12],1,mean)
+# p4 = apply(datasets[[1]][,13:16],1,mean)
+# r1c = data.frame(cbind(p1,p2,p3,p4))
+# 
+# p1 = apply(datasets[[2]][,1:4],1,mean)
+# p2 = apply(datasets[[2]][,5:8],1,mean)
+# p3 = apply(datasets[[2]][,9:12],1,mean)
+# p4 = apply(datasets[[2]][,13:16],1,mean)
+# r1g = data.frame(cbind(p1,p2,p3,p4))
+# 
+# p1 = apply(datasets[[3]][,1:4],1,mean)
+# p2 = apply(datasets[[3]][,5:8],1,mean)
+# p3 = apply(datasets[[3]][,9:14],1,mean)
+# p4 = apply(datasets[[3]][,15:20],1,mean)
+# r2c = data.frame(cbind(p1,p2,p3,p4))
+# 
+# p1 = apply(datasets[[4]][,1:4],1,mean)
+# p2 = apply(datasets[[4]][,5:8],1,mean)
+# p3 = apply(datasets[[4]][,9:14],1,mean)
+# p4 = apply(datasets[[4]][,15:20],1,mean)
+# r2g = data.frame(cbind(p1,p2,p3,p4))
+# 
+#   
+# datasets.prob.avg = list(r1c,
+#                          r1g,
+#                          r2c,
+#                          r2g)
+# 
+# cor.prob.avg.matrices = list(cor(datasets.prob.avg[[1]],datasets.prob.avg[[1]]),
+#                     cor(datasets.prob.avg[[2]],datasets.prob.avg[[2]]),
+#                     cor(datasets.prob.avg[[3]],datasets.prob.avg[[3]]),
+#                     cor(datasets.prob.avg[[4]],datasets.prob.avg[[4]]))
+# 
+# fan.prob.avg.results = list(factanal(covmat = cor.prob.avg.matrices[[1]],factors = num.factors,
+#                             n.obs = nrow(cor.prob.avg.matrices[[1]]), rotation = "varimax"),
+#                    factanal(covmat = cor.prob.avg.matrices[[2]],factors = num.factors,
+#                             n.obs = nrow(cor.prob.avg.matrices[[2]]), rotation = "varimax"),
+#                    factanal(covmat = cor.prob.avg.matrices[[3]],factors = num.factors,
+#                             n.obs = nrow(cor.prob.avg.matrices[[3]]), rotation = "varimax"),
+#                    factanal(covmat = cor.prob.avg.matrices[[4]],factors = num.factors,
+#                             n.obs = nrow(cor.prob.avg.matrices[[4]]), rotation = "varimax"))
